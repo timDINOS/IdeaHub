@@ -2,9 +2,9 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import setToken from "../serverAuth/token";
 
-const OBTAIN_ERRORS = "OBTAIN_ERROR";
-const USER_LOADING = "USER_LOADING";
-const SET_USER = "SET_USER";
+export const OBTAIN_ERRORS = "OBTAIN_ERROR";
+export const USER_LOADING = "USER_LOADING";
+export const SET_USER = "SET_USER";
 
 export const setUser = userData => {
     return {

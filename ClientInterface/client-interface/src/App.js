@@ -1,38 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import setToken from "./serverAuth/token";
 
-import {Provider } from "react-redux";
-import { Component } from 'react';
+import { setUser, userLogout } from "./actions/authenticationActions";
+import { Provider } from "react-redux";
+import store from "./store";
 
-var maintainLogin = function(localStorage) {
-  if (localStorage.jwtToken) {
-    var token = localStorage.jwtToken;
-    setAuthToken(token);
-    var decoded_token = jwt_token(token);
+import Navbar from "./components/PageDesigns/menuBar";
+import Landing from "./components/PageDesigns/LandingPage";
+import Register from "./components/UserAuthentication/Register";
+import Login from "./components/UserAuthentication/Login";
+import Private from "./components/Private/route";
+import Dashboard from "./components/Dashboard/dashboard";
 
-    //Update with action and design objects
-    const time = Date.now() / 1000;
-    if (time > decoded_token.exp) {
-      return;
-    }
+import "./App.css";
+
+if (localStorage.jwtToken) {
+  const token = localStorage.jwtToken;
+  setToken(token);
+  const decoded = jwt_decode(token);
+  store.dispatch(setUser(decoded));
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    store.dispatch(userLogout());
+
     window.location.href = "./login";
   }
 }
-
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/Register" component={Register} />
+            <Route exact path="/Login" component={Login} />
+            <Switch>
+              <Private exact path="/Dashboard" component={Dashboard} />
+            </Switch>
+          </div>
+        </Router>
+      </Provider>
     );
   }
 }
-
 export default App;

@@ -19,3 +19,5 @@ class Menu extends Componenet {
         );
     }
 }
+
+export default Menu;
