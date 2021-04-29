@@ -4,6 +4,7 @@ import React from "react";
 import {Component } from "react";
 import { connect } from "react-redux";
 import { registerAct } from "../../actions/authenticationActions";
+import {Link, withRouter } from "react-router-dom";
 
 class Register extends Component {
     constructor() {
@@ -113,7 +114,7 @@ class Register extends Component {
 
 };
 
-Register.PropTypes = {
+Register.propTypes = {
     registerAct: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired

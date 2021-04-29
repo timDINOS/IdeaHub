@@ -15,7 +15,7 @@ var Private = ({component: Component, auth, ...rest }) => (
   />
 );
 
-PrivateRoute.propTypes = {
+Private.propTypes = {
     auth: PropTypes.object.isRequired
   };
   

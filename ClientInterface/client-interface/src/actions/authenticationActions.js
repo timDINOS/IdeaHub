@@ -21,12 +21,12 @@ export const registerAct = (userInfo, hist) => relay => {
 export const loginUser = userInfo => relay => {
     axios.post("/api/users/", userInfo).then(response => {
         const { token } = response.data;
-        localInfo.setItem("jwtToken", token);
+        localStorage.setItem("jwtToken", token);
         setToken(token);
 
         var decoded_info = jwt_decode(token);
         relay(setUser(decoded_info));
-    }).catch(error => dispatch({
+    }).catch(error => relay({
         type: OBTAIN_ERRORS,
         payload: error.response.data
     }));
@@ -39,7 +39,7 @@ export const setLoading = () => {
 };
 
 export const userLogout = () => relay => {
-    localInfo.removeItem("jwtToken");
+    localStorage.removeItem("jwtToken");
     setToken(false);
     relay(setUser({}));
 };
