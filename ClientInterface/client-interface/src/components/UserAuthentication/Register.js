@@ -19,7 +19,7 @@ class Register extends Component {
     }
 
     didRecieveProps(nextPropObj) {
-        if (nextPropObj.errors == true) {
+        if (nextPropObj.errors) {
             this.setState({
                 errors: nextPropObj.errors
             });
