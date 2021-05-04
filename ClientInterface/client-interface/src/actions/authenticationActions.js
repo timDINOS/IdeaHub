@@ -19,7 +19,7 @@ export const registerAct = (userInfo, hist) => relay => {
 };
 
 export const loginUser = userInfo => relay => {
-    axios.post("/api/users/", userInfo).then(response => {
+    axios.post("/api/users/login", userInfo).then(response => {
         const { token } = response.data;
         localStorage.setItem("jwtToken", token);
         setToken(token);
