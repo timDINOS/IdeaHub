@@ -32,6 +32,8 @@ export const loginUser = userInfo => relay => {
     }));
 };
 
+
+
 export const setLoading = () => {
     return {
         type: USER_LOADING
